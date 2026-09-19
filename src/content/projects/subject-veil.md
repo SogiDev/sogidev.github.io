@@ -1,7 +1,7 @@
 ---
 title: 'Subject Veil'
 tagline: 'A first-person horror game where the thing hunting you can only hear you — built in C++23 on an engine I wrote.'
-year: '2025 — present'
+year: '2026 — present'
 role: 'Solo developer'
 status: 'In development'
 order: 1

@@ -1,7 +1,7 @@
 ---
 title: 'Veil Engine & World Editor'
 tagline: 'The C++23 engine and in-house level editor under Subject Veil — lighting rig, gizmos, inspector, and a cross-platform build pipeline.'
-year: '2025 — present'
+year: '2026 — present'
 role: 'Solo developer'
 status: 'In development'
 order: 2
