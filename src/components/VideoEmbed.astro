@@ -1,0 +1,123 @@
+---
+/**
+ * Click-to-load YouTube embed.
+ *
+ * WHY NOT A PLAIN <iframe>: a YouTube iframe pulls ~1.5MB of player
+ * JS on page load, per video, whether or not anyone presses play.
+ * This renders the thumbnail only, and swaps in the real iframe on
+ * click. Uses youtube-nocookie.com so nothing is set until then.
+ *
+ * Pass the VIDEO ID, not the URL:
+ *   https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  dQw4w9WgXcQ
+ */
+interface Props {
+  id: string;
+  title: string;
+}
+
+const { id, title } = Astro.props;
+
+// maxres doesn't exist for every upload; hqdefault always does.
+const poster = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+const posterFallback = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+---
+
+<div class="embed" data-video-id={id}>
+  <button class="embed__btn" type="button" aria-label={`Play video: ${title}`}>
+    <img
+      class="embed__poster"
+      src={poster}
+      data-fallback={posterFallback}
+      alt=""
+      loading="lazy"
+      width="1280"
+      height="720"
+    />
+    <span class="embed__play" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    </span>
+  </button>
+  <noscript>
+    <a href={`https://www.youtube.com/watch?v=${id}`} rel="noopener">
+      Watch “{title}” on YouTube
+    </a>
+  </noscript>
+</div>
+
+<style>
+  .embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--ambient);
+    overflow: hidden;
+  }
+  .embed__btn {
+    all: unset;
+    display: block;
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+  }
+  .embed__btn:focus-visible { outline: 2px solid var(--selection); outline-offset: -2px; }
+
+  .embed__poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.72;
+    transition: opacity 0.2s, transform 0.4s;
+  }
+  .embed__btn:hover .embed__poster,
+  .embed__btn:focus-visible .embed__poster { opacity: 1; transform: scale(1.02); }
+
+  .embed__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .embed__play svg {
+    color: var(--fog);
+    background: var(--lamp);
+    padding: 14px 16px 14px 20px;
+    box-shadow: 0 0 40px color-mix(in srgb, var(--lamp) 45%, transparent);
+    transition: background 0.2s;
+  }
+  .embed__btn:hover .embed__play svg { background: var(--selection); }
+
+  .embed :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.embed').forEach((box) => {
+    const img = box.querySelector<HTMLImageElement>('.embed__poster');
+    // maxresdefault 404s on some uploads; YouTube serves a 120x90 grey
+    // placeholder instead of an error, so check the decoded width.
+    img?.addEventListener('load', () => {
+      const fb = img.dataset.fallback;
+      if (img.naturalWidth <= 120 && fb) img.src = fb;
+    });
+
+    box.querySelector('.embed__btn')?.addEventListener('click', () => {
+      const id = box.dataset.videoId;
+      if (!id) return;
+      const frame = document.createElement('iframe');
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      frame.title = 'YouTube video player';
+      frame.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      box.replaceChildren(frame);
+    });
+  });
+</script>

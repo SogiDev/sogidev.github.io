@@ -1,0 +1,120 @@
+---
+import { url } from '../lib/url';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const d = project.data;
+
+// Fall back to the YouTube thumbnail when there's no cover image, so a
+// project is never a blank rectangle just because art isn't ready.
+const art = d.cover ?? (d.youtube ? `https://i.ytimg.com/vi/${d.youtube}/hqdefault.jpg` : null);
+---
+
+<article class="card">
+  <a class="card__link" href={url(`/projects/${project.id}`)}>
+    <div class="card__art">
+      {art ? (
+        <img src={art} alt="" loading="lazy" width="640" height="360" />
+      ) : (
+        <span class="card__art-empty" aria-hidden="true"></span>
+      )}
+    </div>
+
+    <div class="card__body">
+      <p class="card__meta">
+        <span class="status" data-status={d.status}>{d.status}</span>
+        <span class="card__year">{d.year}</span>
+      </p>
+
+      <h3 class="card__title">{d.title}</h3>
+      <p class="card__tagline">{d.tagline}</p>
+
+      <ul class="tags card__tags">
+        {d.tech.slice(0, 4).map((t) => <li class="tag">{t}</li>)}
+      </ul>
+    </div>
+  </a>
+</article>
+
+<style>
+  .card {
+    border: 1px solid var(--ambient);
+    background: var(--surface);
+    transition: border-color 0.18s, background 0.18s, transform 0.18s;
+  }
+  .card:hover {
+    border-color: var(--lamp);
+    background: var(--surface-2);
+    transform: translateY(-2px);
+  }
+
+  .card__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card__art {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--ambient);
+    background: var(--fog);
+  }
+  .card__art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.75;
+    transition: opacity 0.2s, transform 0.4s;
+  }
+  .card:hover .card__art img { opacity: 1; transform: scale(1.03); }
+
+  .card__art-empty {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(120% 90% at 50% 120%, color-mix(in srgb, var(--moonlight) 14%, transparent), transparent 70%),
+      var(--fog);
+  }
+
+  .card__body {
+    padding: var(--s-4) var(--s-4) var(--s-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    flex: 1;
+  }
+
+  .card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin: 0;
+  }
+  .card__year {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--moonlight);
+  }
+
+  .card__title { margin: 0; font-size: 1.15rem; }
+  .card:hover .card__title { color: var(--lamp); }
+
+  .card__tagline {
+    margin: 0;
+    color: var(--moonlight);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .card__tags { margin-top: var(--s-2); }
+</style>

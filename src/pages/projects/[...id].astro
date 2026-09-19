@@ -1,0 +1,29 @@
+---
+/**
+ * One route, every project page.
+ *
+ * getStaticPaths runs at build time, asks the collection what exists,
+ * and emits a static HTML page per entry. Add a .md file -> a page
+ * appears. Delete it -> the page goes. You never touch this file.
+ */
+import { getCollection, render } from 'astro:content';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
+  );
+
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<ProjectLayout project={project}>
+  <Content />
+</ProjectLayout>

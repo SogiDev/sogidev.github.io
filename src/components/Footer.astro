@@ -1,0 +1,53 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-foot">
+  <div class="wrap site-foot__in">
+    <p class="site-foot__note">
+      Built with Astro. Palette read out of the Veil engine.
+    </p>
+    <ul class="site-foot__links">
+      <li><a href="https://github.com/thebestnoob1129" rel="me noopener">GitHub</a></li>
+      <li><a href="https://youtube.com/@SogiDev" rel="me noopener">YouTube</a></li>
+      <li><a href="https://sogidev.itch.io" rel="me noopener">itch.io</a></li>
+    </ul>
+    <p class="site-foot__copy">&copy; {year} Jacoby Montgomery</p>
+  </div>
+</footer>
+
+<style>
+  .site-foot {
+    border-top: 1px solid var(--ambient);
+    margin-top: var(--s-9);
+    padding-block: var(--s-6);
+  }
+  .site-foot__in {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4) var(--s-6);
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-foot__note,
+  .site-foot__copy {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--moonlight);
+  }
+  .site-foot__links {
+    display: flex;
+    gap: var(--s-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-foot__links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+</style>

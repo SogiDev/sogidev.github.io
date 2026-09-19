@@ -1,0 +1,185 @@
+/* ═══════════════════════════════════════════════════════════════
+   TOKENS
+   Ported from the Veil Design System's *atmosphere* family — the
+   colours the player actually sees. The editor's ImGui heading
+   colours (magenta/cyan/yellow) are deliberately NOT here: that
+   system's own rule 4 keeps tool colour out of anything a viewer
+   looks at, and a portfolio is something a viewer looks at.
+
+   One theme. Veil has one, so this has one.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Atmosphere */
+  --fog:        #08090c;  /* page ground — everything fades to this */
+  --surface:    #0e1116;  /* a card, one step out of the fog        */
+  --surface-2:  #141922;  /* a card you're hovering                 */
+  --ambient:    #282c3a;  /* hairlines and borders                  */
+  --moonlight:  #96acd2;  /* secondary text — cold, the key light   */
+  --ink:        #e8edf5;  /* body text                              */
+  --beam:       #fff6e0;  /* headings — the brightest value         */
+  --lamp:       #ffc482;  /* links and accents — the one warm light */
+  --selection:  #ffbe3c;  /* hover / active                         */
+
+  /* Type — Veil ships no font files; mono is the documented
+     substitution for ProggyClean, body uses the system UI stack. */
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+  --font-ui:   system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Space */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 72px; --s-9: 112px;
+
+  /* Shape — Veil rounds nothing. This is the whole scale. */
+  --radius: 0;
+
+  --measure: 68ch;
+  --page: 1140px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--fog);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Type ─────────────────────────────────────────────────── */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-mono);
+  color: var(--beam);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--s-4);
+  text-wrap: balance;
+}
+h1 { font-size: clamp(2rem, 1.3rem + 3.2vw, 3.5rem); }
+h2 { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); }
+h3 { font-size: 1.15rem; }
+
+p { margin: 0 0 var(--s-4); max-width: var(--measure); text-wrap: pretty; }
+
+a { color: var(--lamp); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--selection); }
+
+:focus-visible {
+  outline: 2px solid var(--selection);
+  outline-offset: 3px;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: .9em;
+  background: var(--surface-2);
+  border: 1px solid var(--ambient);
+  padding: .1em .35em;
+}
+pre {
+  font-family: var(--font-mono);
+  background: var(--surface);
+  border: 1px solid var(--ambient);
+  padding: var(--s-4);
+  overflow-x: auto;
+}
+pre code { background: none; border: 0; padding: 0; }
+
+hr { border: 0; border-top: 1px solid var(--ambient); margin: var(--s-7) 0; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── Layout ───────────────────────────────────────────────── */
+
+.wrap {
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--s-5);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--moonlight);
+  margin: 0 0 var(--s-3);
+}
+
+/* ── Skip link ────────────────────────────────────────────── */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: var(--s-3);
+  background: var(--lamp);
+  color: var(--fog);
+  padding: var(--s-2) var(--s-4);
+  font-family: var(--font-mono);
+  z-index: 100;
+}
+.skip:focus { left: var(--s-5); }
+
+/* ── Tag / chip ───────────────────────────────────────────── */
+
+.tags { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+.tag {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--moonlight);
+  border: 1px solid var(--ambient);
+  padding: 3px var(--s-2);
+  white-space: nowrap;
+}
+
+/* ── Status pill ──────────────────────────────────────────── */
+
+.status {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--moonlight);
+}
+.status::before {
+  content: ''; width: 6px; height: 6px; background: var(--moonlight);
+}
+.status[data-status='In development']::before { background: var(--selection); }
+.status[data-status='Shipped']::before        { background: #5adca0; }
+.status[data-status='Prototype']::before      { background: var(--moonlight); }
+.status[data-status='Archived']::before       { background: #6e6e6e; }
+
+/* ── Button ───────────────────────────────────────────────── */
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .82rem; letter-spacing: .06em; text-transform: uppercase;
+  padding: var(--s-3) var(--s-5);
+  border: 1px solid var(--ambient);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.btn:hover { border-color: var(--lamp); color: var(--lamp); background: var(--surface); }
+.btn--primary { border-color: var(--lamp); color: var(--lamp); }
+.btn--primary:hover { background: var(--lamp); color: var(--fog); }

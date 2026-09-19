@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+# Builds the site and publishes it every time you push to main.
+# Nothing to run by hand — `git push` is the deploy.
+on:
+  push:
+    branches: [main]
+  # Lets you re-run a deploy from the Actions tab without a new commit.
+  workflow_dispatch:
+
+# GITHUB_TOKEN permissions required to publish to Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If you push twice quickly, let the in-flight deploy finish rather than
+# cancelling it — a cancelled Pages deploy can leave the site half-updated.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Build with Astro
+        uses: withastro/action@v6
+        # The action detects your package manager from the lockfile
+        # (package-lock.json), installs, runs `astro build`, and uploads
+        # dist/ as the Pages artifact.
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

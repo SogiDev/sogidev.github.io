@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+// Drafts build locally so you can preview, but never publish.
+const projects = (
+  await getCollection('projects', ({ data }) => (import.meta.env.PROD ? !data.draft : true))
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Kuma — Game Programmer"
+  description="Gameplay and engine programming. C++23, Raylib, Unity. Currently building Subject Veil, a first-person horror game, and documenting it on the SogiDev devlog channel."
+>
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Jacoby “Kuma” Montgomery · Decatur, GA</p>
+      <h1 class="hero__h">
+        I build the systems<br />players fight against.
+      </h1>
+      <p class="hero__lede">
+        Gameplay and engine programming in C++23 and Unity — enemy AI, player control,
+        and the tools around them. Right now that means <strong>Subject Veil</strong>,
+        a first-person horror game running on an engine I wrote, shipped week by week
+        on the SogiDev devlog channel.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#work">See the work</a>
+        <a class="btn" href="https://youtube.com/@SogiDev" rel="me noopener">Devlogs</a>
+      </div>
+    </div>
+    <div class="hero__fade" aria-hidden="true"></div>
+  </section>
+
+  <!-- ── Work ────────────────────────────────────────────── -->
+  <section class="wrap section" id="work">
+    <header class="section__head">
+      <h2>Work</h2>
+      <p class="section__note">{projects.length} projects</p>
+    </header>
+
+    {projects.length === 0 ? (
+      <p class="empty">
+        No projects yet. Add a <code>.md</code> file to
+        <code>src/content/projects/</code> and it appears here.
+      </p>
+    ) : (
+      <div class="grid">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    )}
+  </section>
+
+  <!-- ── About ───────────────────────────────────────────── -->
+  <section class="wrap section" id="about">
+    <header class="section__head">
+      <h2>About</h2>
+    </header>
+
+    <div class="about">
+      <div class="about__prose">
+        <p>
+          I'm a game programmer and IT technician working toward running my own
+          studio. The short version: gameplay programming is the craft I'm
+          scaling, IT is what funds it, and everything I build gets documented
+          publicly so the learning compounds.
+        </p>
+        <p>
+          My focus is player and entity mechanics — movement, abilities, and AI
+          state machines. On Veil that's a stalker running a four-state FSM on
+          sound-based perception, fed by a director system that hints at the
+          player without making the AI omniscient.
+        </p>
+        <p>
+          Outside the game: a Linux and Docker build pipeline for cross-platform
+          packaging, a self-hosted services stack, and an IT certification track
+          on the systems-administration side.
+        </p>
+      </div>
+
+      <aside class="about__side">
+        <h3 class="side__h">Elsewhere</h3>
+        <ul class="about__links">
+          <li><a href="https://github.com/thebestnoob1129" rel="me noopener">github.com/thebestnoob1129</a></li>
+          <li><a href="https://youtube.com/@SogiDev" rel="me noopener">youtube.com/@SogiDev</a></li>
+          <li><a href="https://sogidev.itch.io" rel="me noopener">sogidev.itch.io</a></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ─────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding-block: clamp(var(--s-8), 10vw, var(--s-9)) var(--s-8);
+    /* the beam: one warm light, low and off-centre, into the fog */
+    background:
+      radial-gradient(70% 55% at 18% 105%, color-mix(in srgb, var(--lamp) 13%, transparent), transparent 70%),
+      radial-gradient(90% 70% at 85% -10%, color-mix(in srgb, var(--moonlight) 9%, transparent), transparent 65%),
+      var(--fog);
+    overflow: hidden;
+  }
+  .hero__fade {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--fog));
+    pointer-events: none;
+  }
+
+  .hero__h {
+    font-size: clamp(2.1rem, 1.2rem + 4.2vw, 4rem);
+    margin-bottom: var(--s-5);
+    max-width: 16ch;
+  }
+  .hero__lede {
+    font-size: clamp(1rem, 0.95rem + 0.35vw, 1.2rem);
+    color: var(--moonlight);
+    max-width: 56ch;
+    margin-bottom: var(--s-6);
+  }
+  .hero__lede strong { color: var(--ink); font-weight: 500; }
+
+  .hero__actions { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+
+  /* ── Sections ─────────────────────────────────────────── */
+  .section { padding-block: var(--s-8); }
+
+  .section__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding-bottom: var(--s-4);
+    margin-bottom: var(--s-6);
+    border-bottom: 1px solid var(--ambient);
+  }
+  .section__head h2 { margin: 0; }
+  .section__note {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--moonlight);
+  }
+
+  /* ── Grid ─────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: var(--s-5);
+  }
+
+  .empty {
+    color: var(--moonlight);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  /* ── About ────────────────────────────────────────────── */
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: var(--s-8);
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .about { grid-template-columns: 1fr; gap: var(--s-6); }
+  }
+
+  .side__h {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--moonlight);
+    margin-bottom: var(--s-3);
+  }
+  .about__links { list-style: none; margin: 0; padding: 0; }
+  .about__links li { margin-bottom: var(--s-2); }
+  .about__links a {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    text-decoration: none;
+    word-break: break-all;
+  }
+</style>

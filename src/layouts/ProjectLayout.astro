@@ -1,0 +1,186 @@
+---
+/**
+ * THE PROJECT PAGE TEMPLATE.
+ *
+ * Every project page on the site is this file. Change it once and all
+ * of them change. Each section below renders only if the matching
+ * frontmatter field exists, so a project with no video or no repo link
+ * just doesn't show those blocks — nothing breaks, nothing is empty.
+ */
+import BaseLayout from './BaseLayout.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
+import { url } from '../lib/url';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const d = project.data;
+---
+
+<BaseLayout title={`${d.title} — Kuma`} description={d.tagline} image={d.cover}>
+  <article class="wrap project">
+    <a class="back" href={url('/#work')}>&larr; All work</a>
+
+    <header class="project__head">
+      <p class="eyebrow">{d.year} · {d.role}</p>
+      <h1>{d.title}</h1>
+      <p class="project__tagline">{d.tagline}</p>
+
+      <div class="project__actions">
+        <span class="status" data-status={d.status}>{d.status}</span>
+        {d.playable && <a class="btn btn--primary" href={d.playable} rel="noopener">Play it</a>}
+        {d.repo && <a class="btn" href={d.repo} rel="noopener">Source</a>}
+      </div>
+    </header>
+
+    {/* ── Video demo ──────────────────────────────────────── */}
+    {d.youtube && (
+      <section class="project__video" aria-label="Video demo">
+        <VideoEmbed id={d.youtube} title={d.title} />
+      </section>
+    )}
+
+    {/* ── Still, when there's no video ────────────────────── */}
+    {!d.youtube && d.cover && (
+      <section class="project__video">
+        <img src={d.cover} alt={`Screenshot from ${d.title}`} width="1280" height="720" />
+      </section>
+    )}
+
+    <div class="project__cols">
+      {/* ── The write-up: everything below the frontmatter ── */}
+      <div class="project__prose">
+        <slot />
+      </div>
+
+      {/* ── Sidebar: stack, details, highlights ───────────── */}
+      <aside class="project__side">
+        <section>
+          <h2 class="side__h">Built with</h2>
+          <ul class="tags">
+            {d.tech.map((t) => <li class="tag">{t}</li>)}
+          </ul>
+        </section>
+
+        {d.details && Object.keys(d.details).length > 0 && (
+          <section>
+            <h2 class="side__h">Details</h2>
+            <dl class="side__dl">
+              {Object.entries(d.details).map(([k, v]) => (
+                <>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </>
+              ))}
+            </dl>
+          </section>
+        )}
+
+        {d.highlights && d.highlights.length > 0 && (
+          <section>
+            <h2 class="side__h">What I built</h2>
+            <ul class="side__list">
+              {d.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+          </section>
+        )}
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .project { padding-block: var(--s-6) var(--s-8); }
+
+  .back {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--moonlight);
+    text-decoration: none;
+    margin-bottom: var(--s-6);
+  }
+  .back:hover { color: var(--lamp); }
+
+  .project__head { margin-bottom: var(--s-6); }
+  .project__tagline {
+    font-size: 1.15rem;
+    color: var(--moonlight);
+    max-width: 58ch;
+    margin-bottom: var(--s-5);
+  }
+  .project__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+  }
+
+  .project__video { margin-bottom: var(--s-7); }
+  .project__video img { border: 1px solid var(--ambient); width: 100%; }
+
+  .project__cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: var(--s-8);
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .project__cols { grid-template-columns: 1fr; gap: var(--s-7); }
+  }
+
+  .project__prose :global(h2) { margin-top: var(--s-7); }
+  .project__prose :global(h3) { margin-top: var(--s-6); }
+  .project__prose :global(ul),
+  .project__prose :global(ol) { max-width: var(--measure); }
+  .project__prose :global(li) { margin-bottom: var(--s-2); }
+  .project__prose :global(img) { border: 1px solid var(--ambient); margin-block: var(--s-5); }
+  .project__prose :global(blockquote) {
+    margin: var(--s-5) 0;
+    padding-left: var(--s-4);
+    border-left: 2px solid var(--lamp);
+    color: var(--moonlight);
+  }
+
+  .project__side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+    position: sticky;
+    top: 86px;
+  }
+  @media (max-width: 860px) { .project__side { position: static; } }
+
+  .side__h {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--moonlight);
+    margin-bottom: var(--s-3);
+  }
+
+  .side__dl { margin: 0; font-size: 0.88rem; }
+  .side__dl dt {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--moonlight);
+    margin-top: var(--s-3);
+  }
+  .side__dl dt:first-child { margin-top: 0; }
+  .side__dl dd { margin: 2px 0 0; }
+
+  .side__list {
+    margin: 0;
+    padding-left: 1.1em;
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+  .side__list li { margin-bottom: var(--s-2); }
+</style>

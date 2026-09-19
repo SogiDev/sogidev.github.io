@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+// GitHub Pages serves this automatically for any unmatched path.
+---
+
+<BaseLayout title="Not found — Kuma" description="That page doesn't exist.">
+  <section class="wrap nf">
+    <p class="eyebrow">404</p>
+    <h1>Nothing out here.</h1>
+    <p class="nf__lede">
+      The page you're looking for isn't on this site. It may have been renamed,
+      or it may never have existed.
+    </p>
+    <a class="btn btn--primary" href={url('/')}>Back to the work</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    padding-block: var(--s-9);
+    min-height: 52vh;
+    background: radial-gradient(
+      60% 50% at 30% 100%,
+      color-mix(in srgb, var(--lamp) 8%, transparent),
+      transparent 70%
+    );
+  }
+  .nf__lede {
+    color: var(--moonlight);
+    max-width: 46ch;
+    margin-bottom: var(--s-6);
+  }
+</style>

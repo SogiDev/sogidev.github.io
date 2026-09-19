@@ -1,0 +1,86 @@
+---
+import { url } from '../lib/url';
+
+const here = Astro.url.pathname.replace(/\/$/, '');
+const isHome = here === url('').replace(/\/$/, '');
+---
+
+<header class="site-head">
+  <div class="wrap site-head__in">
+    <a class="brand" href={url('/')} aria-current={isHome ? 'page' : undefined}>
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">Kuma</span>
+      <span class="brand__sub">/ sogidev</span>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href={url('/#work')}>Work</a></li>
+        <li><a href={url('/#about')}>About</a></li>
+        <li><a href="https://youtube.com/@SogiDev" rel="me noopener">YouTube</a></li>
+        <li><a href="https://github.com/thebestnoob1129" rel="me noopener">GitHub</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-head {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--fog) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--ambient);
+  }
+  .site-head__in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-5);
+    min-height: 62px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--s-2);
+    font-family: var(--font-mono);
+    color: var(--beam);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .brand__mark {
+    width: 9px;
+    height: 9px;
+    background: var(--lamp);
+    align-self: center;
+    /* the beam: the one warm value, and the only thing that moves */
+    box-shadow: 0 0 12px var(--lamp);
+  }
+  .brand__sub { color: var(--moonlight); font-size: 0.82rem; }
+
+  nav ul {
+    display: flex;
+    gap: var(--s-5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  nav a {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--moonlight);
+    text-decoration: none;
+  }
+  nav a:hover { color: var(--lamp); }
+
+  @media (max-width: 560px) {
+    .site-head__in { padding-block: var(--s-3); }
+    nav ul { gap: var(--s-4); }
+  }
+</style>
