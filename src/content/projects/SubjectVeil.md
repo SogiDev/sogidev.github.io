@@ -11,12 +11,12 @@ tech: ['C++23', 'Raylib', 'CMake', 'Docker', 'ImGui']
 
 # To add the video: copy the ID out of the YouTube URL and uncomment.
 # https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  youtube: 'dQw4w9WgXcQ'
-# youtube: 'REPLACE_WITH_VIDEO_ID'
+youtube: '9RfqozsWPVs'
 
 # Drop a 1280x720 image in public/covers/ and point at it:
 # cover: '/covers/subject-veil.jpg'
 
-# repo: 'https://github.com/sogidev/ProjectVeil'
+repo: 'https://github.com/sogidev/ProjectVeil'
 # playable: 'https://sogidev.itch.io/subject-veil'
 
 details:

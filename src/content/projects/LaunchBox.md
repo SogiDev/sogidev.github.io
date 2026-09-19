@@ -1,21 +1,21 @@
 ---
 title: 'Launch Box'
 tagline: 'A Unity platformer in C# — the first leadership project with a release build.'
-year: '2022'
-role: 'Solo developer'
+year: '2026'
+role: 'Lead Developer'
 status: 'Shipped'
 order: 3
 
-tech: ['Unity', 'C#', '2D Physics']
+tech: ['Unity', 'C#', '3D Physics']
 
 # youtube: 'REPLACE_WITH_VIDEO_ID'
 # cover: '/covers/platformer.jpg'
-# playable: 'https://sogidev.itch.io/'
+playable: 'https://sogidev.itch.io/launchbox'
 
 details:
   Engine: 'Unity'
   Language: 'C#'
-  Team: 'Solo'
+  Team: 'Game Jam'
   Scope: 'Complete, released'
 ---
 
