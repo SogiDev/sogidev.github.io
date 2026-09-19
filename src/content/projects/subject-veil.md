@@ -16,7 +16,7 @@ tech: ['C++23', 'Raylib', 'CMake', 'Docker', 'ImGui']
 # Drop a 1280x720 image in public/covers/ and point at it:
 # cover: '/covers/subject-veil.jpg'
 
-# repo: 'https://github.com/thebestnoob1129/ProjectVeil'
+# repo: 'https://github.com/sogidev/ProjectVeil'
 # playable: 'https://sogidev.itch.io/subject-veil'
 
 details:

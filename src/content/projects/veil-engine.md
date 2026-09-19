@@ -10,7 +10,7 @@ tech: ['C++23', 'Raylib', 'ImGui', 'CMake', 'Docker', 'Linux']
 
 # youtube: 'REPLACE_WITH_VIDEO_ID'
 # cover: '/covers/veil-engine.jpg'
-# repo: 'https://github.com/thebestnoob1129/ProjectVeil'
+# repo: 'https://github.com/sogidev/ProjectVeil'
 
 details:
   Language: 'C++23'
