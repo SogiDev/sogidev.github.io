@@ -9,7 +9,7 @@ order: 3
 tech: ['Unity', 'C#', '3D Physics']
 
 # youtube: 'REPLACE_WITH_VIDEO_ID'
-# cover: '/covers/platformer.jpg'
+cover: '/covers/launchbox_thumbnail.png'
 playable: 'https://sogidev.itch.io/launchbox'
 
 details:
