@@ -18,6 +18,10 @@ role: 'Solo developer'
 # One of exactly: In development | Shipped | Prototype | Archived
 status: 'In development'
 tech: ['C++23', 'Raylib']
+youtube: ''
+cover: ''
+repo: ''
+playable: ''
 
 # ── OPTIONAL — delete any line you don't use ─────────────────
 

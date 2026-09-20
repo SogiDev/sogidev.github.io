@@ -16,8 +16,8 @@ youtube: '9RfqozsWPVs'
 # Drop a 1280x720 image in public/covers/ and point at it:
 # cover: '/covers/subject-veil.jpg'
 
-repo: 'https://github.com/sogidev/ProjectVeil'
-# playable: 'https://sogidev.itch.io/subject-veil'
+repo: 'https://github.com/DracniaStudios/ProjectVeil'
+playable: 'https://github.com/DracniaStudios/ProjectVeil/releases'
 
 details:
   Engine: 'Custom (C++23 + Raylib)'

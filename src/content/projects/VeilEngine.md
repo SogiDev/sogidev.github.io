@@ -8,9 +8,10 @@ order: 2
 
 tech: ['C++23', 'Raylib', 'ImGui', 'CMake', 'Docker', 'Linux']
 
-# youtube: 'REPLACE_WITH_VIDEO_ID'
+youtube: 'NeJ8mECytB8'
 # cover: '/covers/veil-engine.jpg'
-# repo: 'https://github.com/sogidev/ProjectVeil'
+repo: 'https://github.com/DracniaStudios/ProjectVeil'
+playable: 'https://github.com/DracniaStudios/ProjectVeil/releases'
 
 details:
   Language: 'C++23'
