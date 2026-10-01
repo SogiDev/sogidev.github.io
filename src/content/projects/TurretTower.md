@@ -1,7 +1,7 @@
 ---
 # ── REQUIRED ─────────────────────────────────────────────────
 title: 'Turret Tower'
-tagline: 'One sentence. What it is and what makes it interesting — this shows on the homepage card.'
+tagline: 'Defend Your Crystal from attacking Spaceships.'
 year: '2026'
 role: 'Solo developer'
 status: 'Shipped'
@@ -22,7 +22,7 @@ details:
   Scope: 'Complete, released'
 
 
-draft: true
+draft: false
 
 highlights: 
   - 'Used Object Oriented Programming to develop Character Systems (AI and Player).'
