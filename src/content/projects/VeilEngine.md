@@ -1,6 +1,6 @@
 ---
 title: 'Veil Engine'
-tagline: 'The C++23 engine under Subject Veil — lighting rig, gizmos, inspector, and a cross-platform build pipeline.'
+tagline: 'The C++23 engine under Subject Veil for Cross-Platform Production.'
 year: '2026 — Present'
 role: 'Solo Developer'
 status: 'In development'
@@ -9,7 +9,7 @@ order: 2
 tech: ['C++23', 'Raylib', 'ImGui', 'CMake', 'Docker', 'Linux']
 
 youtube: 'NeJ8mECytB8'
-# cover: '/covers/veil-engine.jpg'
+cover: ''
 repo: 'https://github.com/DracniaStudios/ProjectVeil'
 playable: 'https://github.com/DracniaStudios/ProjectVeil/releases'
 

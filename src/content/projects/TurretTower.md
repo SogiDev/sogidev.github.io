@@ -10,7 +10,7 @@ tech: ['Unity', 'C#']
 order: 10
 
 youtube: ''
-cover: ''
+cover: '/covers/TurretTower.png'
 repo: 'https://github.com/SogiDev/CrossHero'
 playable: 'https://sogidev.itch.io/turret-tower'
 
@@ -21,66 +21,31 @@ details:
   Team: 'Solo'
   Scope: 'Complete, released'
 
-# ── OPTIONAL — delete any line you don't use ─────────────────
 
-# Video demo. The ID ONLY, not the whole URL:
-#   https://www.youtube.com/watch?v=dQw4w9WgXcQ   ->   'dQw4w9WgXcQ'
-#   https://youtu.be/dQw4w9WgXcQ                  ->   'dQw4w9WgXcQ'
-# youtube: 'dQw4w9WgXcQ'
-
-# Cover image. Put the file in public/covers/ and reference it from the
-# site root. 1280x720 or wider. Used on the card, the social preview,
-# and as the hero still if there's no video.
-# cover: '/covers/my-game.jpg'
-
-# repo: 'https://github.com/thebestnoob1129/my-game'
-# playable: 'https://sogidev.itch.io/my-game'
-
-# Sidebar rows. Add whatever you want — these are freeform.
-
-
-# Bulleted "What I built" list in the sidebar.
-# highlights:
-#   - 'The one system you are proudest of'
-#   - 'The second one'
-
-# ── ORDERING ─────────────────────────────────────────────────
-# Lower number = higher on the homepage. Default is 99.
-
-# true = builds locally, never publishes. Use while writing.
 draft: true
+
+highlights: 
+  - 'Used Object Oriented Programming to develop Character Systems (AI and Player).'
+  - 'Perspective based parallaxing for objects and background.'
 ---
 
-## The pitch
+## The Game
 
-Everything below the `---` is the page body. Plain markdown — headings, lists,
-links, images, code blocks.
+Defend your *crystal* by traversing across a tower of cybernetic platforms and building *turrets* to fight against *spaceships*.
 
-Write for someone who has thirty seconds. Lead with what the project *is* and
-the one thing about it that's hard or unusual. Save the feature list for the
-sidebar.
+Try out the new *Platformer* / *Tower Defence* game submitted for the Bezi Game Jam.
 
-## The interesting problem
+## Object Oriented Characters
 
-The single strongest thing you can put on a portfolio page is one specific
-technical problem, why the obvious solution didn't work, and what you did
-instead. That paragraph is what gets you asked about in an interview.
+![Example of Turret Used for Combat](/shots/TurretTower/Turret.png)
 
-## Images
+The Character Controller System utilized based and derived classes for similar detections and movement across all entities. 
 
-Put them in `public/shots/` and reference them from the site root:
+![Derived Class Usage for Turret Class](/shots/TurretTower/CombatManager.png)
 
-```markdown
-![What the screenshot shows](/shots/my-game-01.jpg)
-```
+Spaceships and Turrets used a similar detection system to get targets, aligning with purpose built targeting.
 
-## When you're done
+![Derived Class Usage for Detecting Targets](/shots/TurretTower/FindTarget.png)
 
-Set `draft: false`, then:
+Others such as the Player and Crystals are ignored for last to allow for longer gameplay lengths strategic playability.
 
-```bash
-npm run build     # catches schema mistakes before they ship
-git add -A && git commit -m "Add My Game" && git push
-```
-
-The live site rebuilds itself in about a minute.
