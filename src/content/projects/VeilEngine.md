@@ -1,8 +1,8 @@
 ---
-title: 'Veil Engine & World Editor'
-tagline: 'The C++23 engine and in-house level editor under Subject Veil — lighting rig, gizmos, inspector, and a cross-platform build pipeline.'
-year: '2026 — present'
-role: 'Solo developer'
+title: 'Veil Engine'
+tagline: 'The C++23 engine under Subject Veil — lighting rig, gizmos, inspector, and a cross-platform build pipeline.'
+year: '2026 — Present'
+role: 'Solo Developer'
 status: 'In development'
 order: 2
 
@@ -16,29 +16,28 @@ playable: 'https://github.com/DracniaStudios/ProjectVeil/releases'
 details:
   Language: 'C++23'
   Rendering: 'Raylib'
-  Editor UI: 'Dear ImGui'
-  Build: 'CMake + Docker'
+  Editor UI: 'ImGui'
+  Build: 'CMake'
 
 highlights:
-  - 'Lighting system: directional key with shadow mapping, point fill, spot flashlight'
+  - 'Lighting System: directional key with shadow mapping, point fill, spot flashlight'
   - 'Translate / rotate / scale gizmos with distance-invariant handle sizing'
   - 'Object browser, inspector panels, and scene serialisation to JSON'
   - 'Docker kit: Linux build, Windows cross-compile, dev container, headless smoke tests'
   - 'Resolution-independent runtime UI built from pure rectangle functions'
 ---
 
-## Why write the engine
+## Why Write The Engine
 
-Veil needs sound to be a first-class gameplay signal and light to be the
-player's only real resource. Both of those are cheaper to build than to retrofit
-onto a general-purpose engine — and building them is the point, since engine
-work is where the actual programming learning lives.
+Veil is a stealth horror game, and the perfect project for the Engine to support first.
+As the project grows it will require more and more engine work, and the engine will grow with it. 
+The goal is to make the engine a first-class citizen of the project, not just a tool to get the game done.
 
-## The lighting rig
+## The Lighting Rig
 
 The default rig is three lights and a fog term, and the whole mood comes out of
 their relationship: one cold directional key that casts the shadow map, one warm
-point fill so the spawn area doesn't read flat, and the player's flashlight —
+point fill so the spawn area doesn't read flat, and the player's flashlight 
 the brightest value in the game and the only one they control.
 
 Everything fades to a near-black with a blue cast. Unlit surfaces get a cold
@@ -46,22 +45,21 @@ ambient wash at low strength so they read as shadow rather than as flat grey.
 The warm/cold split *is* the composition: the two warm values are the lamp and
 the beam, and they're what the player moves toward.
 
-## The editor
+## The Editor
 
-Dear ImGui panels over the live viewport — object browser, inspector, lighting
+ImGui panels over the live viewport object browser, inspector, lighting
 controls, stalker AI tuning. The gizmo handles recompute their size every frame
 from camera distance so they stay the same apparent size whether the object is
 two units away or two hundred.
 
-## The build pipeline
+## The Build Pipeline
 
 A full Docker kit covers Linux builds, Windows cross-compilation, a dev
 container so the toolchain is reproducible, headless smoke testing, and a local
-services stack — game server, Gitea mirror, and a Caddy reverse proxy in front
-of both. The server side doubles as systems-administration practice: the
-dedicated server runs as a systemd unit with SSH and firewall hardening.
+services stack game server. The server side doubles as systems-administration practice: the
+dedicated server runs as a system unit with SSH and firewall hardening.
 
-## A note on the visual system
+## A note on the Visual System
 
 The palette on this site is read out of this engine — the fog, ambient,
 moonlight, lamp, and beam values are the literal colours in the lighting
